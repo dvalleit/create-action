@@ -22,8 +22,8 @@ async function run(){
     const lastPattern = /(?<=<[\S]*&page=)([0-9]*)(?=>; rel="last")/i;
     const found = link.match(lastPattern);
 
-    console.log(found[0]); 
-
+    const amountBranches = found[0];
+    console.log(amountBranches)
     // for await (const {data} of iterator) {
     //     console.log(data)
     // }
