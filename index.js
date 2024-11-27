@@ -31,7 +31,7 @@ async function run(){
     
     await core.summary
         .addHeading('Test Results')
-        .addCodeBlock(generateTestResults(), "js")
+        // .addCodeBlock(generateTestResults(), "js")
         .addTable([
             [{data: 'File', header: true}, {data: 'Result', header: true}],
             ['foo.js', 'Pass ✅'],
