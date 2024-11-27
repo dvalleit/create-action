@@ -14,7 +14,7 @@ async function run(){
         'X-GitHub-Api-Version': '2022-11-28'
         }
     });
-    const link = request.headers.link
+    const link = request_branches.headers.link
 // <https://api.github.com/repositories/895224690/branches?per_page=1&page=2>; rel="next", <https://api.github.com/repositories/895224690/branches?per_page=1&page=3>; rel="last"
     console.log(link)
 
