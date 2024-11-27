@@ -19,7 +19,7 @@ async function run(){
     console.log(link)
 
     // const re = /.*page=(.*)>; rel="last/i;
-    const lastPattern = /(?<=<)[\S]*([0-9]*)(?=>; rel="last")/i;
+    const lastPattern = /(?<=<[\S]*&page=)([0-9]*)(?=>; rel="last")/i;
     const found = link.match(lastPattern);
 
     console.log(found); 
