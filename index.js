@@ -17,10 +17,8 @@ async function run(){
     });
 
 
-    // for await (const {data} of iterator) {
-    //     for (const issue of data) {
-            
-    //     }
-    // }
-    console.log(iterator)
+    for await (const {data} of iterator) {
+        console.log(data)
+    }
+    // console.log(iterator)
 }
