@@ -31814,14 +31814,12 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(6552);
 const github = __nccwpck_require__(7608);
 
-GITHUB_TOKEN = core.getInput('TOKEN')
-// const octokit = core.getInput('TOKEN')
-const octokit = github.getOctokit(GITHUB_TOKEN)
-console.log("aloha")
+// GITHUB_TOKEN = core.getInput('TOKEN')
+const octokit = github.getOctokit(process.env.TOKEN)
 
 async function run(){
-    console.log("hola")
-    const iterator = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
+
+    const request_branches = await octokit.paginate.request('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
         repo: 'create-action',
         per_page: 1,
@@ -31830,11 +31828,11 @@ async function run(){
         }
     });
 
+    console.log(request_branches.headers.link)
 
-    for await (const {data} of iterator) {
-        console.log(data)
-    }
-    // console.log(iterator)
+    // for await (const {data} of iterator) {
+    //     console.log(data)
+    // }
 }
 run();
 module.exports = __webpack_exports__;
