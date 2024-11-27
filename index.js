@@ -6,7 +6,7 @@ GITHUB_TOKEN = core.getInput('TOKEN')
 const octokit = github.getOctokit(GITHUB_TOKEN)
 
 async function run(){
-        
+    console.log("hola")
     const iterator = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'OWNER',
         repo: 'REPO',
