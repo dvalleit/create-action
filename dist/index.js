@@ -31831,8 +31831,9 @@ async function run(){
 // <https://api.github.com/repositories/895224690/branches?per_page=1&page=2>; rel="next", <https://api.github.com/repositories/895224690/branches?per_page=1&page=3>; rel="last"
     console.log(link)
 
-    const re = /.*page=(.*)>; rel="last/i;
-    const found = link.match(re);
+    // const re = /.*page=(.*)>; rel="last/i;
+    const lastPattern = /(?<=<)([\S]*)(?=>; rel="last")/i;
+    const found = link.match(lastPattern);
 
     console.log(found); 
 
