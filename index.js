@@ -1,15 +1,26 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
-}
+con
+// const octokit = core.getInput('TOKEN')
+const octokit = new Octokit({ 
+    auth: process.env.TOKEN,
+  });
+
+
+const iterator = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
+    owner: 'OWNER',
+    repo: 'REPO',
+    per_page: 1,
+    headers: {
+      'X-GitHub-Api-Version': '2022-11-28'
+    }
+  });
+
+  
+// for await (const {data} of iterator) {
+//     for (const issue of data) {
+        
+//     }
+// }
+console.log(iterator)
