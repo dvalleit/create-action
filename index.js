@@ -19,7 +19,7 @@ async function run(){
     console.log(link)
 
     const re = /.*page=(.*)>; rel="last/i;
-    const found = str.match(re);
+    const found = link.match(re);
 
     console.log(found); 
 
