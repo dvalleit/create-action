@@ -31835,7 +31835,7 @@ async function run(){
     const lastPattern = /(?<=<[\S]*&page=)([0-9]*)(?=>; rel="last")/i;
     const found = link.match(lastPattern);
 
-    console.log(found); 
+    console.log(found[0]); 
 
     // for await (const {data} of iterator) {
     //     console.log(data)
