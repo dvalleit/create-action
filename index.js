@@ -1,13 +1,9 @@
-import { Octokit } from "octokit";
-
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-
+GITHUB_TOKEN = core.getInput('TOKEN')
 // const octokit = core.getInput('TOKEN')
-const octokit = new Octokit({ 
-    auth: process.env.TOKEN,
-  });
+const octokit = github.getOctokit(GITHUB_TOKEN)
 
 async function run(){
         
