@@ -6,7 +6,7 @@ const octokit = github.getOctokit(process.env.TOKEN)
 
 async function run(){
 
-    const request_branches = await octokit.paginate.request('GET /repos/{owner}/{repo}/branches', {
+    const request_branches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
         repo: 'create-action',
         per_page: 1,
