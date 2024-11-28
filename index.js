@@ -31,6 +31,9 @@ async function run(){
     // })
     // console.log(listedBranches.data)
     const inputArray = [];
+    const currentDate = new Date();
+    const staleDate = currentDate.setMonth(currentDate.getMonth() - 3);
+    console.log(staleDate)
 
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
@@ -54,7 +57,10 @@ async function run(){
                   'X-GitHub-Api-Version': '2022-11-28'
                 }
             })
-            console.log(branchSpecs.data.commit.commit)
+            // console.log(branchSpecs.data.commit.commit.author.date)
+            const commitDate = branchSpecs.data.commit.commit.author.date
+            
+
         }
     }
 
