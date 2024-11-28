@@ -21,7 +21,7 @@ async function run(){
     const lastPattern = /(?<=<[\S]*&page=)([0-9]*)(?=>; rel="last")/i;
     const found = link.match(lastPattern);
     const amountBranches = found[0];
-    console.log(amountBranches)
+    // console.log(amountBranches)
 
     // const listedBranches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
     //     owner: 'dvalleit',
@@ -77,8 +77,8 @@ async function run(){
             // '<a href="https://google.com">google.com</a>'
             htmlLink = '<a href="' + branchLink + '">' + branch.name + '</a>'
 
-            console.log(branchLink)
-            console.log(htmlLink)
+            // console.log(branchLink)
+            // console.log(htmlLink)
             inputArray.push(htmlLink)
 
         }
@@ -96,7 +96,7 @@ async function run(){
         }
     })
 
-    console.log(pullRequests.data)
+    console.log(pullRequests.data.length)
       
     
     await core.summary
