@@ -71,7 +71,11 @@ async function run(){
             // console.log("Commit Date en mill es: " + commitDateMill)
             // console.log(Math.abs(currentDate - commitDate))
             const branchLink = "https://github.com/dvalleit/create-action/tree/"+branch.name
+            // '<a href="https://google.com">google.com</a>'
+            const htmlLink = '<a href="' + branchLink + '">' + branch.name + '</a>'
+
             console.log(branchLink)
+            console.log(htmlLink)
             inputArray.push(branchLink)
 
         }
@@ -88,7 +92,7 @@ async function run(){
         .addTable([
             [{data: 'Metric', header: true}, {data: 'Value', header: true}, {data: 'Status', header: true}],
             ['Amount of Branches', amountBranches, 'Pass ✅'],
-            ['bar.js',  "[link](https://github.com)", 'Fail ❌'],
+            ['bar.js',  htmlLink, 'Fail ❌'],
             ['test.js', amountBranches, 'Pass ✅']
         ])
         .addLink('View staging deployment!', 'https://github.com')
