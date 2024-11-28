@@ -31847,6 +31847,7 @@ async function run(){
     const currentDate = new Date();
     const staleDate = new Date(currentDate.setMonth(currentDate.getMonth() - 3))
     const staleDateMill = currentDate.setMonth(currentDate.getMonth() - 3);
+    let htmlLink = ''
 
 
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
@@ -31885,7 +31886,7 @@ async function run(){
             // console.log(Math.abs(currentDate - commitDate))
             const branchLink = "https://github.com/dvalleit/create-action/tree/"+branch.name
             // '<a href="https://google.com">google.com</a>'
-            const htmlLink = '<a href="' + branchLink + '">' + branch.name + '</a>'
+            htmlLink = '<a href="' + branchLink + '">' + branch.name + '</a>'
 
             console.log(branchLink)
             console.log(htmlLink)
