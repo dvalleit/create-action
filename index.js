@@ -3,12 +3,14 @@ const github = require('@actions/github');
 
 // GITHUB_TOKEN = core.getInput('TOKEN')
 const octokit = github.getOctokit(process.env.TOKEN)
+const OWNER = 'dvalleit'
+const REPO = 'create-action'
 
 async function run(){
 
     const request_branches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
-        owner: 'dvalleit',
-        repo: 'create-action',
+        owner: OWNER,
+        repo: REPO,
         per_page: 1,
         headers: {
         'X-GitHub-Api-Version': '2022-11-28'
@@ -38,8 +40,8 @@ async function run(){
 
 
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
-        owner: 'dvalleit',
-        repo: 'create-action',
+        owner: OWNER,
+        repo: REPO,
         per_page: 100,
         headers: {
             'X-GitHub-Api-Version': '2022-11-28'
@@ -51,8 +53,8 @@ async function run(){
         for (const branch of data) {
             // console.log(branch.name)
             const branchSpecs = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
-                owner: 'dvalleit',
-                repo: 'create-action',
+                owner: OWNER,
+                repo: REPO,
                 branch: branch.name,
                 headers: {
                   'X-GitHub-Api-Version': '2022-11-28'
@@ -82,10 +84,20 @@ async function run(){
         }
     }
 
-    console.log(inputArray)
+    // console.log(inputArray)
     const outputArrayString = inputArray.toString().replaceAll(",", " , ")
-    console.log(outputArrayString)
+    // console.log(outputArrayString)
 
+    const pullRequests = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+        owner: OWNER,
+        repo: REPO,
+        headers: {
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+    })
+
+    console.log(pullRequests)
+      
     
     await core.summary
         .addHeading('Test Results')
@@ -103,3 +115,20 @@ async function run(){
 }
 
 run();
+
+// Amount of people in group
+// Who is in the group
+// Who are approvers (per env)
+// Who makes changes to CodeOwners
+// Actions Versions v/s latest version
+// Who approves promotion (per env)
+// How many pipelines are successful
+// Failing pipelines
+// Cancelled pipelines
+// Who created last tag
+// Amount of vulnerabilities (code scan)
+// Amount of branches
+// Stale branches
+// Stale PRs
+// Branches 
+// Alert of all the above
