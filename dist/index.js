@@ -31834,7 +31834,16 @@ async function run(){
     const amountBranches = found[0];
     console.log(amountBranches)
 
-    const listedBranches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
+    // const listedBranches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
+    //     owner: 'dvalleit',
+    //     repo: 'create-action',
+    //     per_page: 100,
+    //     headers: {
+    //         'X-GitHub-Api-Version': '2022-11-28'
+    //     }
+    // })
+    // console.log(listedBranches.data)
+    const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
         repo: 'create-action',
         per_page: 100,
@@ -31842,12 +31851,11 @@ async function run(){
             'X-GitHub-Api-Version': '2022-11-28'
         }
     })
-    console.log(listedBranches.data)
-    // for await (const {data} of iterator) {
-    //     console.log(data)
-    // }
+    for await (const {data} of listedBranches) {
+        console.log(data)
+    }
 
-    
+
     
     await core.summary
         .addHeading('Test Results')
