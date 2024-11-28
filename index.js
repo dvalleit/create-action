@@ -39,7 +39,10 @@ async function run(){
         }
     })
     for await (const {data} of listedBranches) {
-        console.log(data)
+        // console.log(data)
+        for (const branch of data) {
+            console.log(branch.name)
+        }
     }
 
 
