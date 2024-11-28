@@ -31846,7 +31846,7 @@ async function run(){
     const inputArray = [];
     const currentDate = new Date();
     const staleDate = currentDate.setMonth(currentDate.getMonth() - 3);
-    console.log(staleDate)
+    console.log(staleDate.toLocaleDateString())
 
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
