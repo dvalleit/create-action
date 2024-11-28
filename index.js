@@ -88,6 +88,8 @@ async function run(){
     const outputArrayString = inputArray.toString().replaceAll(",", " , ")
     // console.log(outputArrayString)
 
+
+    
     const pullRequests = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
         owner: OWNER,
         repo: REPO,
