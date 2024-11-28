@@ -31873,7 +31873,8 @@ async function run(){
                 }
             })
             // console.log(branchSpecs.data.commit.commit.author.date)
-            const commitDate = branchSpecs.data.commit.commit.author.date
+            const commitDate = new Date(branchSpecs.data.commit.commit.author.date)
+            console.log(commitDate)
             console.log(Math.abs(currentDate - commitDate))
             
 
