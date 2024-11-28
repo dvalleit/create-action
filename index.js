@@ -77,6 +77,7 @@ async function run(){
 
     console.log(inputArray)
     const outputArrayString = inputArray.toString().replace(",", ",\n")
+    console.log(outputArrayString)
 
     
     await core.summary
@@ -85,7 +86,7 @@ async function run(){
         .addTable([
             [{data: 'Metric', header: true}, {data: 'Value', header: true}, {data: 'Status', header: true}],
             ['Amount of Branches', amountBranches, 'Pass ✅'],
-            ['bar.js', inputArray, 'Fail ❌'],
+            ['bar.js', outputArrayString, 'Fail ❌'],
             ['test.js', amountBranches, 'Pass ✅']
         ])
         .addLink('View staging deployment!', 'https://github.com')
