@@ -31843,6 +31843,8 @@ async function run(){
     //     }
     // })
     // console.log(listedBranches.data)
+    const inputArray = [];
+
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
         repo: 'create-action',
@@ -31851,13 +31853,16 @@ async function run(){
             'X-GitHub-Api-Version': '2022-11-28'
         }
     })
+    
     for await (const {data} of listedBranches) {
         // console.log(data)
         for (const branch of data) {
             console.log(branch.name)
+            inputArray.push(branch.name)
         }
     }
 
+    console.log(inputArray)
 
     
     await core.summary
