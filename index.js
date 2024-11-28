@@ -49,7 +49,6 @@ async function run(){
         // console.log(data)
         for (const branch of data) {
             // console.log(branch.name)
-            inputArray.push(branch.name)
             const branchSpecs = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
                 owner: 'dvalleit',
                 repo: 'create-action',
@@ -62,12 +61,16 @@ async function run(){
             const commitDate = new Date(branchSpecs.data.commit.commit.author.date)
             const commitDateMill = commitDate.getTime()
 
-            console.log("Stale Date es:" + staleDate)
-            console.log("Stale Date en mill es:" + staleDateMill)
-            console.log("Commit Date es:" + commitDate)
-            console.log("Commit Date en mill es: " + commitDateMill)
-            console.log(Math.abs(currentDate - commitDate))
-            
+            if (commitDateMill > staleDateMill){
+                console.log("Stale branch: " + commitDate)
+
+            }
+            // console.log("Stale Date es:" + staleDate)
+            // console.log("Stale Date en mill es:" + staleDateMill)
+            // console.log("Commit Date es:" + commitDate)
+            // console.log("Commit Date en mill es: " + commitDateMill)
+            // console.log(Math.abs(currentDate - commitDate))
+            inputArray.push(branch.name)
 
         }
     }
@@ -81,7 +84,7 @@ async function run(){
         .addTable([
             [{data: 'Metric', header: true}, {data: 'Value', header: true}, {data: 'Status', header: true}],
             ['Amount of Branches', amountBranches, 'Pass ✅'],
-            ['bar.js', amountBranches, 'Fail ❌'],
+            ['bar.js', inputArray, 'Fail ❌'],
             ['test.js', amountBranches, 'Pass ✅']
         ])
         .addLink('View staging deployment!', 'https://github.com')
