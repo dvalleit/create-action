@@ -76,6 +76,7 @@ async function run(){
     }
 
     console.log(inputArray)
+    const outputArrayString = inputArray.toString().replace(",", ",\n")
 
     
     await core.summary
