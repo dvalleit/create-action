@@ -59,8 +59,8 @@ async function run(){
                 }
             })
             // console.log(branchSpecs.data.commit.commit.author.date)
-            const commitDateMill = branchSpecs.data.commit.commit.author.date
             const commitDate = new Date(branchSpecs.data.commit.commit.author.date)
+            const commitDateMill = commitDate.getTime()
 
             console.log("Stale Date es:" + staleDate)
             console.log("Stale Date en mill es:" + staleDateMill)
