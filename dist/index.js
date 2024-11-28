@@ -31890,7 +31890,7 @@ async function run(){
 
             console.log(branchLink)
             console.log(htmlLink)
-            inputArray.push(branchLink)
+            inputArray.push(htmlLink)
 
         }
     }
@@ -31906,7 +31906,7 @@ async function run(){
         .addTable([
             [{data: 'Metric', header: true}, {data: 'Value', header: true}, {data: 'Status', header: true}],
             ['Amount of Branches', amountBranches, 'Pass ✅'],
-            ['bar.js',  htmlLink, 'Fail ❌'],
+            ['bar.js',  outputArrayString, 'Fail ❌'],
             ['test.js', amountBranches, 'Pass ✅']
         ])
         .addLink('View staging deployment!', 'https://github.com')
