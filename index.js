@@ -54,7 +54,7 @@ async function run(){
                   'X-GitHub-Api-Version': '2022-11-28'
                 }
             })
-            console.log(branchSpecs)
+            console.log(branchSpecs.data.commit.commit)
         }
     }
 
