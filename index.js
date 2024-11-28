@@ -32,8 +32,10 @@ async function run(){
     // console.log(listedBranches.data)
     const inputArray = [];
     const currentDate = new Date();
+    console.log(currentDate)
     const staleDate = currentDate.setMonth(currentDate.getMonth() - 3);
-    console.log(staleDate.toLocaleDateString())
+    console.log(currentDate)
+    console.log(staleDate)
 
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
