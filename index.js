@@ -29,7 +29,7 @@ async function run(){
             'X-GitHub-Api-Version': '2022-11-28'
         }
     })
-    console.log(listedBranches)
+    console.log(listedBranches.data)
     // for await (const {data} of iterator) {
     //     console.log(data)
     // }
