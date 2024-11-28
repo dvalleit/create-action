@@ -31857,8 +31857,17 @@ async function run(){
     for await (const {data} of listedBranches) {
         // console.log(data)
         for (const branch of data) {
-            console.log(branch.name)
+            // console.log(branch.name)
             inputArray.push(branch.name)
+            const branchSpecs = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
+                owner: 'dvalleit',
+                repo: 'create-action',
+                branch: branch.name,
+                headers: {
+                  'X-GitHub-Api-Version': '2022-11-28'
+                }
+            })
+            console.log(branchSpecs)
         }
     }
 
