@@ -32,10 +32,9 @@ async function run(){
     // console.log(listedBranches.data)
     const inputArray = [];
     const currentDate = new Date();
-    console.log(currentDate)
-    const staleDate = currentDate.setMonth(currentDate.getMonth() - 3);
-    console.log(currentDate)
-    console.log(staleDate)
+    const staleDate = new Date(currentDate.setMonth(currentDate.getMonth() - 3))
+    const staleDateMill = currentDate.setMonth(currentDate.getMonth() - 3);
+
 
     const listedBranches = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/branches', {
         owner: 'dvalleit',
@@ -60,8 +59,13 @@ async function run(){
                 }
             })
             // console.log(branchSpecs.data.commit.commit.author.date)
+            const commitDateMill = branchSpecs.data.commit.commit.author.date
             const commitDate = new Date(branchSpecs.data.commit.commit.author.date)
-            console.log(commitDate)
+
+            console.log("Stale Date es:" + staleDate)
+            console.log("Stale Date en mill es:" + staleDateMill)
+            console.log("Commit Date es:" + commitDate)
+            console.log("Commit Date en mill es: " + commitDateMill)
             console.log(Math.abs(currentDate - commitDate))
             
 
