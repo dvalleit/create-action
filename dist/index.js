@@ -31909,7 +31909,7 @@ async function run(){
         }
     })
 
-    console.log(pullRequests)
+    console.log(pullRequests.data)
       
     
     await core.summary
