@@ -70,13 +70,15 @@ async function run(){
             // console.log("Commit Date es:" + commitDate)
             // console.log("Commit Date en mill es: " + commitDateMill)
             // console.log(Math.abs(currentDate - commitDate))
-            inputArray.push(branch.name)
+            const branchLink = "https://github.com/dvalleit/create-action/tree/"+branch.name
+            console.log(branchLink)
+            inputArray.push(branchLink)
 
         }
     }
 
     console.log(inputArray)
-    const outputArrayString = inputArray.toString().replace(",", ",\n")
+    const outputArrayString = inputArray.toString().replaceAll(",", ",\n")
     console.log(outputArrayString)
 
     
