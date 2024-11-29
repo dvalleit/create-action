@@ -31864,9 +31864,7 @@ async function run(){
     })
     
     for await (const {data} of listedBranches) {
-        // console.log(data)
         for (const branch of data) {
-            // console.log(branch.name)
             const branchSpecs = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
                 owner: OWNER,
                 repo: REPO,
@@ -31875,27 +31873,16 @@ async function run(){
                   'X-GitHub-Api-Version': '2022-11-28'
                 }
             })
-            // console.log(branchSpecs.data.commit.commit.author.date)
             const commitAuthor = branchSpecs.data.commit.commit.author.name
             const commitDate = new Date(branchSpecs.data.commit.commit.author.date)
             const commitDateMill = commitDate.getTime()
 
             if (commitDateMill > staleDateMill){
-                console.log("Stale branch: " + commitDate)
-                
+                const branchLink = "https://github.com/dvalleit/create-action/tree/"+branch.name
+                htmlLink = '<a href="' + branchLink + '">' + branch.name + '(' + commitAuthor + ')</a>'
+    
+                inputArray.push(htmlLink)
             }
-            // console.log("Stale Date es:" + staleDate)
-            // console.log("Stale Date en mill es:" + staleDateMill)
-            // console.log("Commit Date es:" + commitDate)
-            // console.log("Commit Date en mill es: " + commitDateMill)
-            // console.log(Math.abs(currentDate - commitDate))
-            const branchLink = "https://github.com/dvalleit/create-action/tree/"+branch.name
-            // '<a href="https://google.com">google.com</a>'
-            htmlLink = '<a href="' + branchLink + '">' + branch.name + '(' + commitAuthor + ')</a>'
-
-            // console.log(branchLink)
-            // console.log(htmlLink)
-            inputArray.push(htmlLink)
 
         }
     }
@@ -31911,14 +31898,18 @@ async function run(){
         }
     })
 
-    console.log(pullRequests)
-    console.log("----------------------")
     const openPullRequests = pullRequests.data.length
-    console.log(openPullRequests)
       
+    // Get teams info
+    const collaborators = await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
+        owner: OWNER,
+        repo: REPO,
+        headers: {
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+    })
 
-
-
+    console.log(collaborators)
     
     // Summary
     await core.summary
@@ -31928,7 +31919,9 @@ async function run(){
             [{data: 'Metric', header: true}, {data: 'Value', header: true}, {data: 'Status', header: true}],
             ['Amount of Branches', amountBranches, 'Pass ✅'],
             ['Stale Branches',  outputArrayString, 'Fail ❌'],
-            ['Open Pull Requests', openPullRequests, 'Pass ✅']
+            ['Open Pull Requests', openPullRequests, 'Pass ✅'],
+            ['Teams', ,]
+
         ])
         .addLink('View staging deployment!', 'https://github.com')
         .write()
@@ -31939,15 +31932,8 @@ async function run(){
 
 run();
 
-// // Amount of people in group // Who is in the group
 
-// await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
-//     owner: 'OWNER',
-//     repo: 'REPO',
-//     headers: {
-//       'X-GitHub-Api-Version': '2022-11-28'
-//     }
-//   })
+
 
 //   await octokit.request('GET /repos/{owner}/{repo}/teams', {
 //     owner: 'OWNER',
