@@ -120,7 +120,9 @@ async function run(){
         }
     })
 
-    console.log(codeownersContent)
+    const encryptedContent = codeownersContent.data.content
+
+    console.log(encryptedContent)
 
     // Summary
     await core.summary
