@@ -31957,9 +31957,7 @@ async function run(){
             total++
         }
     }
-    console.log('total es ' + total)
-    const pipelineRate = successfulPipelines + '/30'
-    console.log("value es = " + pipelineRate)
+    const pipelineRate = successfulPipelines + '/' + total
 
     // Summary
     await core.summary
