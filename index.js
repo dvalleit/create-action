@@ -99,16 +99,29 @@ async function run(){
     // console.log(collaborators)
 
     // Get teams
-    const associatedTeams = await octokit.request('GET /repos/{owner}/{repo}/teams', {
+    // const associatedTeams = await octokit.request('GET /repos/{owner}/{repo}/teams', {
+    //     owner: OWNER,
+    //     repo: REPO,
+    //     headers: {
+    //       'X-GitHub-Api-Version': '2022-11-28'
+    //     }
+    // })
+
+    // console.log(associatedTeams)
+    
+
+    //Get CODEOWNERS
+    const codeownersContent = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
         owner: OWNER,
         repo: REPO,
+        path: '.github/CODEOWNERS',
         headers: {
-          'X-GitHub-Api-Version': '2022-11-28'
+        'X-GitHub-Api-Version': '2022-11-28'
         }
     })
 
-    console.log(associatedTeams)
-    
+    console.log(codeownersContent)
+
     // Summary
     await core.summary
         .addHeading('Test Results')
@@ -136,14 +149,7 @@ run();
 
 // // Who are approvers (per env)// Who approves promotion (per env)
 
-// await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-//     owner: 'OWNER',
-//     repo: 'REPO',
-//     path: 'PATH',
-//     headers: {
-//       'X-GitHub-Api-Version': '2022-11-28'
-//     }
-//   })
+
 
 
 // await octokit.request('GET /repos/{owner}/{repo}/environments', {
