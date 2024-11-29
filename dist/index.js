@@ -31945,9 +31945,9 @@ async function run(){
         }
     })
 
-    console.log(successfulPipelines)
+    console.log(successfulPipelines.data.workflow_runs)
 
-    
+
     // Summary
     await core.summary
         .addHeading('Test Results')
