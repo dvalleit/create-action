@@ -122,7 +122,7 @@ async function run(){
 
     const encryptedContent = codeownersContent.data.content
 
-    console.log(encryptedContent)
+    console.log(atob(encryptedContent))
 
     // Summary
     await core.summary
