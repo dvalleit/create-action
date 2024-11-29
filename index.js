@@ -87,8 +87,19 @@ async function run(){
 
     const openPullRequests = pullRequests.data.length
       
-    // Get teams info
-    const collaborators = await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
+    // // Get teams info
+    // const collaborators = await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
+    //     owner: OWNER,
+    //     repo: REPO,
+    //     headers: {
+    //       'X-GitHub-Api-Version': '2022-11-28'
+    //     }
+    // })
+
+    // console.log(collaborators)
+
+    // Get teams
+    const associatedTeams = await octokit.request('GET /repos/{owner}/{repo}/teams', {
         owner: OWNER,
         repo: REPO,
         headers: {
@@ -96,7 +107,7 @@ async function run(){
         }
     })
 
-    console.log(collaborators)
+    console.log(associatedTeams)
     
     // Summary
     await core.summary
@@ -122,13 +133,7 @@ run();
 
 
 
-//   await octokit.request('GET /repos/{owner}/{repo}/teams', {
-//     owner: 'OWNER',
-//     repo: 'REPO',
-//     headers: {
-//       'X-GitHub-Api-Version': '2022-11-28'
-//     }
-//   })
+
 // // Who are approvers (per env)// Who approves promotion (per env)
 
 // await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
