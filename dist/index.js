@@ -31937,6 +31937,7 @@ async function run(){
     const decryptedContent = atob(encryptedContent)
 
     // Get successful pipelines
+    let successfulPipelines = 0
     const pipelines = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/actions/runs', {
         owner: OWNER,
         repo: REPO,
@@ -31945,12 +31946,20 @@ async function run(){
         }
     })
 
+    let total = 0
     // console.log(successfulPipelines.data.workflow_runs)
     for await (const {data} of pipelines) {
         for (const workflowRun of data) {
-            console.log(workflowRun.status)
+            const conclusion = workflowRun.conclusion
+            if(conclusion == 'success'){
+                successfulPipelines++ 
+            }
+            total++
         }
     }
+    console.log('total es ' + total)
+    const pipelineRate = successfulPipelines + '/30'
+    console.log("value es = " + pipelineRate)
 
     // Summary
     await core.summary
@@ -31962,7 +31971,7 @@ async function run(){
             ['Stale Branches',  outputArrayString, 'Fail ❌'],
             ['Open Pull Requests', openPullRequests, 'Pass ✅'],
             ['CODEOWNERS', decryptedContent , 'Pass ✅'],
-            ['Successful Pipelines', successfulPipelines , 'Fail ❌']
+            ['Successful Pipelines', pipelineRate , 'Fail ❌']
 
         ])
         .addLink('View staging deployment!', 'https://github.com')
