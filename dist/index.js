@@ -31937,7 +31937,7 @@ async function run(){
     const decryptedContent = atob(encryptedContent)
 
     // Get successful pipelines
-    const successfulPipelines = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
+    const pipelines = await octokit.paginate.iterator('GET /repos/{owner}/{repo}/actions/runs', {
         owner: OWNER,
         repo: REPO,
         headers: {
@@ -31945,8 +31945,12 @@ async function run(){
         }
     })
 
-    console.log(successfulPipelines.data.workflow_runs)
-
+    // console.log(successfulPipelines.data.workflow_runs)
+    for await (const {data} of pipelines) {
+        for (const workflowRun of data) {
+            console.log(workflowRun.status)
+        }
+    }
 
     // Summary
     await core.summary
