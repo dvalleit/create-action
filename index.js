@@ -126,68 +126,68 @@ async function run(){
 
 run();
 
-// Amount of people in group // Who is in the group
+// // Amount of people in group // Who is in the group
 
-await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
-    owner: 'OWNER',
-    repo: 'REPO',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
+// await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
 
-  await octokit.request('GET /repos/{owner}/{repo}/teams', {
-    owner: 'OWNER',
-    repo: 'REPO',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
-// Who are approvers (per env)// Who approves promotion (per env)
+//   await octokit.request('GET /repos/{owner}/{repo}/teams', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+// // Who are approvers (per env)// Who approves promotion (per env)
 
-await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-    owner: 'OWNER',
-    repo: 'REPO',
-    path: 'PATH',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
+// await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     path: 'PATH',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
 
 
-await octokit.request('GET /repos/{owner}/{repo}/environments', {
-  owner: 'OWNER',
-  repo: 'REPO',
-  headers: {
-    'X-GitHub-Api-Version': '2022-11-28'
-  }
-// How many pipelines are successful
-// Failing pipelines
+// await octokit.request('GET /repos/{owner}/{repo}/environments', {
+//   owner: 'OWNER',
+//   repo: 'REPO',
+//   headers: {
+//     'X-GitHub-Api-Version': '2022-11-28'
+//   }
+// // How many pipelines are successful
+// // Failing pipelines
 
-await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
-    owner: 'OWNER',
-    repo: 'REPO',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
-// Who created last tag
+// await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+// // Who created last tag
 
-await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
-    owner: 'OWNER',
-    repo: 'REPO',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
-// Amount of vulnerabilities (code scan)
-await octokit.request('GET /repos/{owner}/{repo}/code-scanning/alerts', {
-    owner: 'OWNER',
-    repo: 'REPO',
-    headers: {
-      'X-GitHub-Api-Version': '2022-11-28'
-    }
-  })
+// await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+// // Amount of vulnerabilities (code scan)
+// await octokit.request('GET /repos/{owner}/{repo}/code-scanning/alerts', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
   
 
-})// Actions Versions v/s latest version
+// })// Actions Versions v/s latest version

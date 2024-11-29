@@ -31821,6 +31821,7 @@ const REPO = 'create-action'
 
 async function run(){
 
+    // Get Branches Info
     const request_branches = await octokit.request('GET /repos/{owner}/{repo}/branches', {
         owner: OWNER,
         repo: REPO,
@@ -31845,6 +31846,7 @@ async function run(){
     //     }
     // })
     // console.log(listedBranches.data)
+
     const inputArray = [];
     const currentDate = new Date();
     const staleDate = new Date(currentDate.setMonth(currentDate.getMonth() - 3))
@@ -31874,12 +31876,13 @@ async function run(){
                 }
             })
             // console.log(branchSpecs.data.commit.commit.author.date)
+            const commitAuthor = branchSpecs.data.commit.commit.author.name
             const commitDate = new Date(branchSpecs.data.commit.commit.author.date)
             const commitDateMill = commitDate.getTime()
 
             if (commitDateMill > staleDateMill){
                 console.log("Stale branch: " + commitDate)
-
+                
             }
             // console.log("Stale Date es:" + staleDate)
             // console.log("Stale Date en mill es:" + staleDateMill)
@@ -31888,7 +31891,7 @@ async function run(){
             // console.log(Math.abs(currentDate - commitDate))
             const branchLink = "https://github.com/dvalleit/create-action/tree/"+branch.name
             // '<a href="https://google.com">google.com</a>'
-            htmlLink = '<a href="' + branchLink + '">' + branch.name + '</a>'
+            htmlLink = '<a href="' + branchLink + '">' + branch.name + '(' + commitAuthor + ')</a>'
 
             // console.log(branchLink)
             // console.log(htmlLink)
@@ -31897,10 +31900,9 @@ async function run(){
         }
     }
 
-    // console.log(inputArray)
     const outputArrayString = inputArray.toString().replaceAll(",", " , ")
-    // console.log(outputArrayString)
 
+    // Get Pull Requests Info
     const pullRequests = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
         owner: OWNER,
         repo: REPO,
@@ -31909,17 +31911,24 @@ async function run(){
         }
     })
 
-    console.log(pullRequests.data.length)
+    console.log(pullRequests)
+    console.log("----------------------")
+    const openPullRequests = pullRequests.data.length
+    console.log(openPullRequests)
       
+
+
+
     
+    // Summary
     await core.summary
         .addHeading('Test Results')
         // .addCodeBlock(generateTestResults(), "js")
         .addTable([
             [{data: 'Metric', header: true}, {data: 'Value', header: true}, {data: 'Status', header: true}],
             ['Amount of Branches', amountBranches, 'Pass ✅'],
-            ['bar.js',  outputArrayString, 'Fail ❌'],
-            ['test.js', amountBranches, 'Pass ✅']
+            ['Stale Branches',  outputArrayString, 'Fail ❌'],
+            ['Open Pull Requests', openPullRequests, 'Pass ✅']
         ])
         .addLink('View staging deployment!', 'https://github.com')
         .write()
@@ -31927,24 +31936,75 @@ async function run(){
 
 }
 
+
 run();
 
-// Amount of people in group
-// Who is in the group
-// Who are approvers (per env)
-// Who makes changes to CodeOwners
-// Actions Versions v/s latest version
-// Who approves promotion (per env)
-// How many pipelines are successful
-// Failing pipelines
-// Cancelled pipelines
-// Who created last tag
-// Amount of vulnerabilities (code scan)
-// Amount of branches
-// Stale branches
-// Stale PRs
-// Branches 
-// Alert of all the above
+// // Amount of people in group // Who is in the group
+
+// await octokit.request('GET /repos/{owner}/{repo}/collaborators', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+
+//   await octokit.request('GET /repos/{owner}/{repo}/teams', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+// // Who are approvers (per env)// Who approves promotion (per env)
+
+// await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     path: 'PATH',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+
+
+// await octokit.request('GET /repos/{owner}/{repo}/environments', {
+//   owner: 'OWNER',
+//   repo: 'REPO',
+//   headers: {
+//     'X-GitHub-Api-Version': '2022-11-28'
+//   }
+// // How many pipelines are successful
+// // Failing pipelines
+
+// await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+// // Who created last tag
+
+// await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+// // Amount of vulnerabilities (code scan)
+// await octokit.request('GET /repos/{owner}/{repo}/code-scanning/alerts', {
+//     owner: 'OWNER',
+//     repo: 'REPO',
+//     headers: {
+//       'X-GitHub-Api-Version': '2022-11-28'
+//     }
+//   })
+  
+
+// })// Actions Versions v/s latest version
+
 module.exports = __webpack_exports__;
 /******/ })()
 ;
