@@ -121,9 +121,20 @@ async function run(){
     })
 
     const encryptedContent = codeownersContent.data.content
+    const decryptedContent = atob(encryptedContent)
 
-    console.log(atob(encryptedContent))
+    // Get successful pipelines
+    const successfulPipelines = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
+        owner: OWNER,
+        repo: REPO,
+        headers: {
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+    })
 
+    console.log(successfulPipelines)
+
+    
     // Summary
     await core.summary
         .addHeading('Test Results')
@@ -133,7 +144,8 @@ async function run(){
             ['Amount of Branches', amountBranches, 'Pass ✅'],
             ['Stale Branches',  outputArrayString, 'Fail ❌'],
             ['Open Pull Requests', openPullRequests, 'Pass ✅'],
-            ['Teams', ,]
+            ['CODEOWNERS', decryptedContent , 'Pass ✅'],
+            ['Successful Pipelines', successfulPipelines , 'Fail ❌']
 
         ])
         .addLink('View staging deployment!', 'https://github.com')
@@ -160,16 +172,9 @@ run();
 //   headers: {
 //     'X-GitHub-Api-Version': '2022-11-28'
 //   }
-// // How many pipelines are successful
-// // Failing pipelines
 
-// await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
-//     owner: 'OWNER',
-//     repo: 'REPO',
-//     headers: {
-//       'X-GitHub-Api-Version': '2022-11-28'
-//     }
-//   })
+
+
 // // Who created last tag
 
 // await octokit.request('GET /repos/{owner}/{repo}/releases/latest', {
